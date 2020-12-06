@@ -16,6 +16,8 @@ str(tb)
 
 table(tb$constat1)
 
+table(tb$fifteenToSeventeen, useNA = "always")
+
 # Create contraception var where those not at risk of unintended pregnancy set to nan
 
 tb <-

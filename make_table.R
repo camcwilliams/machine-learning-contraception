@@ -35,6 +35,9 @@ fifteenToSeventeen$fifteenToSeventeen <- 1
 
 tb <- bind_rows(elevenToFifteen, fifteenToSeventeen)
 
+table(tb$fifteenToSeventeen, useNA = "always")
+table(fifteenToSeventeen$rscrage > 44)
+
 # write table to folder
 
 write_sas(tb, "C:/Users/Christine McWilliams/Documents/Box/ML_Practice/nsfg2011_2017.sas7bdat")
