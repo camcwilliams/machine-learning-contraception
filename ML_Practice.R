@@ -3,9 +3,6 @@
 ## Machine Learning Practice Project ##
 ##      Christine McWilliams         ##
 
-
-install.packages("ggplot2")
-
 library(haven)
 library(tidyr)
 library(tidyverse)
@@ -43,8 +40,9 @@ write_sas(tb, "C:/Users/Christine McWilliams/Documents/Box/ML_Practice/nsfg2011_
 table(tb$fifteenToSeventeen)
 table(fifteenToSeventeen$rscrage > 44)
 
-ggplot(elevenToFifteen, aes(x=agebaby1)) + geom_histogram(binwidth = 1)
+ggplot(elevenToFifteen, aes(x=cmintvw)) + geom_histogram(binwidth = 1)
 
+str(tb)
 
 
 
