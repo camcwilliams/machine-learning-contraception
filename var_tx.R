@@ -12,14 +12,15 @@ library(ggplot2)
 
 tb <- read_sas("C:/Users/Christine McWilliams/Documents/Box/ML_Practice/nsfg2011_2017.sas7bdat")
 
+# Checking things
 str(tb)
 
 table(tb$constat1)
 
 table(tb$fifteenToSeventeen, useNA = "always")
 
-# Create contraception var where those not at risk of unintended pregnancy set to nan
 
+# Create contraception var where those not at risk of unintended pregnancy set to nan
 tb <-
   tb %>% 
   mutate(con = case_when(
@@ -28,8 +29,8 @@ tb <-
 
 table(tb$con, useNA = "always")
 
-# Not using contraception but at risk of unintended pregnancy
 
+# Not using contraception but at risk of unintended pregnancy
 tb <-
   tb %>% 
     mutate(nouse = case_when(
@@ -37,8 +38,8 @@ tb <-
       con != 42 ~ 0
     ))
 
-# Using IUD vs using something else | contraceptive user
 
+# Using IUD vs using something else | contraceptive user
 contraceptors <- 
   tb %>%
     filter(con <= 22) %>% 
@@ -48,3 +49,20 @@ contraceptors <-
     ))
 
 str(contraceptors)
+
+
+# Checking remaining vars to decide what to keep
+
+mean(contraceptors$rscrage)
+histogram(contraceptors$rscrage)
+histogram(contraceptors$agebaby1) # change to one continuous and one categorical var
+table(contraceptors$hieduc) # change to factors
+table(contraceptors$hisprace) # change to factors
+histogram(contraceptors$poverty) # keep as continuous for now (could do flag for discontinuity at 500, similar to diss)
+mean(contraceptors$parity) # keep as continuous for now
+table(contraceptors$rwant) # change to factors 
+table(contraceptors$rmarital) # change to factors
+# currins change to factors
+# remove interview timing vars: cmintvw, quarter, phase, intvwyear, fifteentoSeventeen
+# do I need to change 1/0s to factors??
+
