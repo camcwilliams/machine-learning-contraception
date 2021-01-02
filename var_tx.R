@@ -51,14 +51,14 @@ contraceptors <-
 str(contraceptors)
 
 
-# Checking remaining vars to decide what to keep
-
+# Checking remaining vars to decide what to keep/change
 mean(contraceptors$rscrage)
 histogram(contraceptors$rscrage)
 histogram(contraceptors$agebaby1) # change to one continuous and one categorical var
 table(contraceptors$hieduc) # change to factors
 table(contraceptors$hisprace) # change to factors
 histogram(contraceptors$poverty) # keep as continuous for now (could do flag for discontinuity at 500, similar to diss)
+table(contraceptors$parity)
 mean(contraceptors$parity) # keep as continuous for now
 table(contraceptors$rwant) # change to factors 
 table(contraceptors$rmarital) # change to factors
@@ -66,3 +66,8 @@ table(contraceptors$rmarital) # change to factors
 # remove interview timing vars: cmintvw, quarter, phase, intvwyear, fifteentoSeventeen
 # do I need to change 1/0s to factors??
 
+
+# Changing relevant vars
+fac_vars <- c('hieduc', 'hisprace', 'rwant', 'rmarital')
+contraceptors[,fac_vars] <- lapply(contraceptors[,fac_vars], factor)
+str(contraceptors)
