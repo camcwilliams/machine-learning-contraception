@@ -67,7 +67,33 @@ table(contraceptors$rmarital) # change to factors
 # do I need to change 1/0s to factors??
 
 
-# Changing relevant vars
+# Changing relevant continuous vars to factors
 fac_vars <- c('hieduc', 'hisprace', 'rwant', 'rmarital')
 contraceptors[,fac_vars] <- lapply(contraceptors[,fac_vars], factor)
 str(contraceptors)
+
+
+# Creating discontinuity flag for poverty var, just in case
+contraceptors$poverty_500 <- ifelse(contraceptors$poverty == 500, 1, 0)
+
+
+# Agebaby1 appears to have different scales for the two different years?
+summary(nsfg2011_2015$agebaby1)
+summary(nsfg2015_2017$agebaby1) # sure enough
+
+
+  # fixing that
+
+  test_round <- 
+    contraceptors %>% 
+      mutate(agebaby1_round = case_when(
+        fifteenToSeventeen == 1 ~ agebaby1,
+        is.na(fifteenToSeventeen) ~ round(agebaby1/100)
+      ))
+  
+    filter(test_round, caseid == 69650)
+
+  histogram(test_round$agebaby1_round)  
+  str(test_round$agebaby1_round)  
+  summary(test_round$agebaby1_round)  
+  
