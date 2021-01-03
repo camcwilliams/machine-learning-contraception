@@ -68,7 +68,7 @@ table(contraceptors$rmarital) # change to factors
 
 
 # Changing relevant continuous vars to factors
-fac_vars <- c('hieduc', 'hisprace', 'rwant', 'rmarital')
+fac_vars <- c('hieduc', 'hisprace', 'rwant', 'rmarital', 'curr_ins')
 contraceptors[,fac_vars] <- lapply(contraceptors[,fac_vars], factor)
 str(contraceptors)
 
@@ -94,7 +94,7 @@ contraceptors$poverty_500 <- ifelse(contraceptors$poverty == 500, 1, 0)
   
   # forgive me epi gods but categorizing age at first birth
   # tried using cut() but cats did not lign up
-  test <-
+  contraceptors <-
     contraceptors %>% 
       mutate(agefirstbirth = case_when(
         is.na(agebaby1_round) ~ "nulliparous",
@@ -111,3 +111,8 @@ contraceptors$poverty_500 <- ifelse(contraceptors$poverty == 500, 1, 0)
   # sample_10 <- sample_n(test, 10)
   # table(sample_10$agebaby1_round, sample_10$agefirstbirth)  
   
+
+# Drop interview timing vars
+contraceptors <- select(contraceptors, -cmintvw, -quarter, -phase, -intvwyear)
+
+str(contraceptors)
